@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import Nav from "@/components/Nav";
 import { createClient } from "@/lib/supabase/server";
 
@@ -37,6 +38,17 @@ export default async function DashboardPage() {
               Your event check-in pass is ready whenever you need it.
             </p>
           </div>
+
+          {["intern", "admin"].includes(profile?.role) && (
+            <div className="mb-6">
+              <Link
+                href="/scan"
+                className="inline-flex items-center rounded-2xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+              >
+                Scan attendance
+              </Link>
+            </div>
+          )}
 
           <div className="grid gap-6 md:grid-cols-2">
             <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
