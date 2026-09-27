@@ -31,7 +31,7 @@ export default async function Home() {
   if (user) {
     const { data } = await supabase
       .from("profiles")
-      .select("name")
+      .select("name, role")
       .eq("id", user.id)
       .single();
     profile = data;
@@ -60,7 +60,11 @@ export default async function Home() {
           </Link>
 
           {user ? (
-            <ProfileMenu name={profile?.name || user.email} avatarUrl={null} />
+            <ProfileMenu
+              name={profile?.name || user.email}
+              role={profile?.role}
+              avatarUrl={null}
+            />
           ) : (
             <div className="flex items-center gap-3 sm:gap-5">
               <Link
@@ -92,20 +96,12 @@ export default async function Home() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
               One QR code. Every Connect EMEA event. No paperwork.
             </p>
-            <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
-              <Link
-                href="/signup"
-                className="inline-flex items-center justify-center rounded-2xl bg-brand-500 px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
-              >
-                Get started
-              </Link>
-              <Link
-                href="/events"
-                className="inline-flex items-center justify-center rounded-2xl border border-brand-500 px-7 py-3.5 text-base font-semibold text-brand-600 transition-colors hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
-              >
-                View events
-              </Link>
-            </div>
+            <Link
+              href={user ? "/dashboard" : "/signup"}
+              className="mt-10 inline-flex items-center justify-center rounded-2xl bg-brand-500 px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+            >
+              {user ? "Go to dashboard" : "Get started"}
+            </Link>
           </div>
         </section>
 

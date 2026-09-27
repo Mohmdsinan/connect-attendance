@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { getInitials } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 
-export default function ProfileMenu({ name, avatarUrl }) {
+export default function ProfileMenu({ name, avatarUrl, role }) {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState("");
   const containerRef = useRef(null);
@@ -73,6 +73,16 @@ export default function ProfileMenu({ name, avatarUrl }) {
           >
             Dashboard
           </Link>
+          {(role === "intern" || role === "admin") && (
+            <Link
+              href="/events"
+              role="menuitem"
+              onClick={() => setIsOpen(false)}
+              className="block px-4 py-2 text-sm text-gray-700 transition-colors hover:bg-gray-50"
+            >
+              Events
+            </Link>
+          )}
           <button
             type="button"
             role="menuitem"
