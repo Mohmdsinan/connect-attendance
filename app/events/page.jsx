@@ -82,6 +82,11 @@ export default function EventsPage() {
     async function fetchEvents() {
       try {
         const response = await fetch("/api/events");
+        if (response.status === 401) {
+          router.replace("/login");
+          return;
+        }
+
         const data = await readJsonResponse(response);
         if (!cancelled) {
           setEvents(data);
@@ -102,11 +107,16 @@ export default function EventsPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [router]);
 
   async function refreshEvents() {
     try {
       const response = await fetch("/api/events");
+      if (response.status === 401) {
+        router.replace("/login");
+        return;
+      }
+
       const data = await readJsonResponse(response);
       setEvents(data);
       setError("");

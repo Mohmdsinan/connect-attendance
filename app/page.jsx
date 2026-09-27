@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import ProfileMenu from "@/components/ProfileMenu";
+import { createClient } from "@/lib/supabase/server";
 
 const steps = [
   {
@@ -19,7 +21,22 @@ const steps = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let profile = null;
+  if (user) {
+    const { data } = await supabase
+      .from("profiles")
+      .select("name")
+      .eq("id", user.id)
+      .single();
+    profile = data;
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-white text-slate-950">
       <header className="w-full px-6 sm:px-8">
@@ -42,20 +59,24 @@ export default function Home() {
             />
           </Link>
 
-          <div className="flex items-center gap-3 sm:gap-5">
-            <Link
-              href="/login"
-              className="rounded-2xl px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-slate-950"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-2xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
-            >
-              Sign up
-            </Link>
-          </div>
+          {user ? (
+            <ProfileMenu name={profile?.name || user.email} avatarUrl={null} />
+          ) : (
+            <div className="flex items-center gap-3 sm:gap-5">
+              <Link
+                href="/login"
+                className="rounded-2xl px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:text-slate-950"
+              >
+                Log in
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded-2xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+              >
+                Sign up
+              </Link>
+            </div>
+          )}
         </nav>
       </header>
 
@@ -71,12 +92,20 @@ export default function Home() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
               One QR code. Every Connect EMEA event. No paperwork.
             </p>
-            <Link
-              href="/signup"
-              className="mt-10 inline-flex items-center justify-center rounded-2xl bg-brand-500 px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
-            >
-              Get started
-            </Link>
+            <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
+              <Link
+                href="/signup"
+                className="inline-flex items-center justify-center rounded-2xl bg-brand-500 px-7 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+              >
+                Get started
+              </Link>
+              <Link
+                href="/events"
+                className="inline-flex items-center justify-center rounded-2xl border border-brand-500 px-7 py-3.5 text-base font-semibold text-brand-600 transition-colors hover:bg-brand-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+              >
+                View events
+              </Link>
+            </div>
           </div>
         </section>
 
