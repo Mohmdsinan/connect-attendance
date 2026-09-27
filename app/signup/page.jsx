@@ -16,6 +16,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState("");
   const [studentId, setStudentId] = useState("");
   const [department, setDepartment] = useState("");
+  const [role, setRole] = useState("student");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -34,6 +35,7 @@ export default function SignUpPage() {
           name,
           student_id: studentId,
           department,
+          role,
         },
       },
     });
@@ -137,6 +139,25 @@ export default function SignUpPage() {
                     {item}
                   </option>
                 ))}
+              </select>
+            </div>
+
+            <div>
+              <label
+                htmlFor="role"
+                className="mb-1.5 block text-sm font-medium text-gray-700"
+              >
+                Account type
+              </label>
+              <select
+                id="role"
+                required
+                value={role}
+                onChange={(event) => setRole(event.target.value)}
+                className={inputClassName}
+              >
+                <option value="student">Student</option>
+                <option value="intern">Intern</option>
               </select>
             </div>
 

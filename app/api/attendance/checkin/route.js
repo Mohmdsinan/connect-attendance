@@ -47,6 +47,26 @@ export async function POST(request) {
     );
   }
 
+  const { data: event } = await supabase
+    .from("events")
+    .select("created_by")
+    .eq("id", eventId)
+    .single();
+
+  if (!event) {
+    return Response.json({ error: "Event not found" }, { status: 404 });
+  }
+
+  if (profile.role !== "admin" && event.created_by !== user.id) {
+    return Response.json(
+      {
+        error:
+          "Only the intern who created this event can scan attendance for it",
+      },
+      { status: 403 },
+    );
+  }
+
   const { data: student, error: studentError } = await supabase
     .from("profiles")
     .select("id, name, student_id, department")

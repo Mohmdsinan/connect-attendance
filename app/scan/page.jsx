@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Nav from "@/components/Nav";
+import { createClient } from "@/lib/supabase/client";
 
 const buttonClassName =
   "rounded-2xl bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 disabled:cursor-not-allowed disabled:opacity-50";
@@ -36,9 +37,35 @@ export default function ScanPage() {
           throw new Error("Unexpected events response");
         }
 
+        const supabase = createClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+          throw new Error("Unauthorized");
+        }
+
+        const { data: profile, error: profileError } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", user.id)
+          .single();
+
+        if (profileError) {
+          throw profileError;
+        }
+
+        const visibleEvents =
+          profile.role === "admin"
+            ? data
+            : data.filter((event) => event.created_by === user.id);
+
         if (!cancelled) {
-          setEvents(data);
-          setSelectedEventId(data.length > 0 ? String(data[0].id) : "");
+          setEvents(visibleEvents);
+          setSelectedEventId(
+            visibleEvents.length > 0 ? String(visibleEvents[0].id) : "",
+          );
           setEventError("");
         }
       } catch (loadError) {
@@ -77,10 +104,7 @@ export default function ScanPage() {
             try {
               scanner.clear();
             } catch (error) {
-              console.error(
-                "Could not clear QR scanner during cleanup",
-                error,
-              );
+              console.error("Could not clear QR scanner during cleanup", error);
             }
           });
       }
