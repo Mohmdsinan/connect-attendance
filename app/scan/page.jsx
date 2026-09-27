@@ -335,7 +335,7 @@ export default function ScanPage() {
 
             <div
               id="qr-reader"
-              className="mt-6 w-full overflow-hidden rounded-xl"
+              className="mt-6 w-full max-h-[60vh] overflow-hidden rounded-xl [&_video]:max-h-[60vh] [&_video]:w-full [&_video]:object-cover"
             />
 
             {processing && (

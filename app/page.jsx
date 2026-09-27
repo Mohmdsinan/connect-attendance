@@ -39,7 +39,7 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-slate-950">
-      <header className="w-full px-6 sm:px-8">
+      <header className="w-full px-4 sm:px-8">
         <nav
           aria-label="Main navigation"
           className="mx-auto flex h-20 max-w-6xl items-center justify-between"
@@ -47,7 +47,7 @@ export default async function Home() {
           <Link
             href="/"
             aria-label="Connect EMEA home"
-            className="relative h-10 w-56 overflow-hidden"
+            className="relative h-10 w-36 overflow-hidden sm:w-56"
           >
             <Image
               src="/ConnectFullLogo.png"
@@ -55,7 +55,7 @@ export default async function Home() {
               width={1500}
               height={1500}
               priority
-              className="h-10 w-56 object-cover"
+              className="h-10 w-36 object-cover sm:w-56"
             />
           </Link>
 
@@ -90,7 +90,7 @@ export default async function Home() {
             <p className="mb-6 text-sm font-semibold uppercase tracking-[0.18em] text-brand-500">
               Connect EMEA event attendance
             </p>
-            <h1 className="max-w-3xl text-5xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl">
+            <h1 className="max-w-3xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-6xl md:text-7xl">
               Attendance, simplified.
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
@@ -109,7 +109,7 @@ export default async function Home() {
           aria-label="How it works"
           className="px-6 py-20 sm:px-8 sm:py-24"
         >
-          <div className="mx-auto grid max-w-5xl gap-8 border-t border-slate-200 pt-10 sm:grid-cols-3 sm:gap-10">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 border-t border-slate-200 pt-10 sm:grid-cols-3 sm:gap-10">
             {steps.map((step) => (
               <article key={step.number} className="rounded-2xl">
                 <p className="text-sm font-semibold tracking-wide text-brand-500">

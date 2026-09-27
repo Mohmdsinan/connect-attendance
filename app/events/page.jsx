@@ -157,7 +157,7 @@ export default function EventsPage() {
       <Nav userName={null} />
       <main className="w-full flex-1 px-6 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto max-w-6xl">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-500">
                 Connect EMEA
@@ -190,7 +190,7 @@ export default function EventsPage() {
               ) : upcoming.length === 0 ? (
                 <p className="text-sm text-gray-500">No upcoming events</p>
               ) : (
-                <ul className="grid gap-4 sm:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {upcoming.map((ev) => (
                     <li
                       key={ev.id}
@@ -208,7 +208,7 @@ export default function EventsPage() {
                         </p>
                       )}
 
-                      <div className="mt-4 flex items-center gap-3">
+                      <div className="mt-4 flex flex-wrap items-center gap-3">
                         {ev.requires_registration ? (
                           registeredIds.has(ev.id) ? (
                             <span className="inline-flex items-center rounded-full bg-green-50 px-3 py-1 text-sm font-medium text-green-800">
@@ -251,7 +251,7 @@ export default function EventsPage() {
               {past.length === 0 ? (
                 <p className="text-sm text-gray-500">No past events yet</p>
               ) : (
-                <ul className="grid gap-4 sm:grid-cols-2">
+                <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {past.map((ev) => (
                     <li
                       key={ev.id}
@@ -269,7 +269,7 @@ export default function EventsPage() {
                         </p>
                       )}
 
-                      <div className="mt-4 flex items-center gap-3">
+                      <div className="mt-4 flex flex-wrap items-center gap-3">
                         {(currentUserRole === "intern" ||
                           currentUserRole === "admin") && (
                           <a

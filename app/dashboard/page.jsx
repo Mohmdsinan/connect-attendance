@@ -50,7 +50,7 @@ export default async function DashboardPage() {
             </div>
           )}
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
               <h2 className="text-xl font-semibold tracking-tight text-gray-950">
                 Your QR code

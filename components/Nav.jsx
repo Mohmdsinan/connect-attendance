@@ -25,7 +25,7 @@ export default function Nav({ userName, authLink, authLabel }) {
   }
 
   return (
-    <header className="w-full px-6 sm:px-8">
+    <header className="w-full px-4 sm:px-8">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex h-20 max-w-6xl items-center justify-between"
@@ -33,7 +33,7 @@ export default function Nav({ userName, authLink, authLabel }) {
         <Link
           href="/"
           aria-label="Connect EMEA home"
-          className="relative h-10 w-40 overflow-hidden sm:w-56"
+          className="relative h-10 w-32 overflow-hidden sm:w-56"
         >
           <Image
             src="/ConnectFullLogo.png"
@@ -41,13 +41,13 @@ export default function Nav({ userName, authLink, authLabel }) {
             width={1500}
             height={1500}
             priority
-            className="h-10 w-40 object-cover sm:w-56"
+            className="h-10 w-32 object-cover sm:w-56"
           />
         </Link>
 
         {userName ? (
-          <div className="flex items-center gap-3 sm:gap-5">
-            <span className="max-w-40 truncate text-sm font-medium text-gray-700 sm:max-w-none">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-5">
+            <span className="max-w-24 truncate text-sm font-medium text-gray-700 sm:max-w-none">
               {userName}
             </span>
             <button
