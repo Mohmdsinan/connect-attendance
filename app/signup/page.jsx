@@ -102,7 +102,7 @@ export default function SignUpPage() {
                 htmlFor="studentId"
                 className="mb-1.5 block text-sm font-medium text-gray-700"
               >
-                Student ID
+                Admission Number
               </label>
               <input
                 id="studentId"
@@ -110,7 +110,7 @@ export default function SignUpPage() {
                 required
                 value={studentId}
                 onChange={(event) => setStudentId(event.target.value)}
-                placeholder="e.g. 20230001"
+                placeholder="e.g. 20ABCD101"
                 className={inputClassName}
               />
             </div>
