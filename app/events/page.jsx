@@ -285,6 +285,12 @@ export default function EventsPage() {
                         {event.description}
                       </p>
                     )}
+                    <a
+                      href={`/api/events/${event.id}/export`}
+                      className="mt-5 inline-flex items-center rounded-2xl border border-gray-200 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500"
+                    >
+                      Export CSV
+                    </a>
                   </li>
                 ))}
               </ul>
